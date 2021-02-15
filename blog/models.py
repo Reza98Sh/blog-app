@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class Post(models.Model):
@@ -9,5 +10,14 @@ class Post(models.Model):
             )
     body = models.TextField()
 
+    
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        '''
+        It sets a canonical URL for an object so even if
+        the structure of your URLs changes in the future,
+        the reference to the specific object is the same.
+        '''
+        return reverse("post_detail", args=[str(self.id)])
